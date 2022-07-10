@@ -1,6 +1,9 @@
 server:
   port: '8082'
 
+spring:
+  profiles :
+    active : Harshwardhan
 ---
 
 spring:
@@ -8,7 +11,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    url: jdbc:mysql://127.0.0.1:3306/ems
+    url: jdbc:mysql://localhost:3306/ems
     password: admin
   jpa:
     hibernate:

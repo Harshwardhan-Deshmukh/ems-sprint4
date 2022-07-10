@@ -1,6 +1,7 @@
 package com.sprint.controller;
 
 import com.sprint.entity.Employee;
+import com.sprint.error.EmployeeNotFoundException;
 import com.sprint.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    public Employee fetchEmployeeById(@PathVariable("id") Long employeeId) {
+    public Employee fetchEmployeeById(@PathVariable("id") Long employeeId) throws EmployeeNotFoundException {
         return employeeService.fetchEmployeeById(employeeId);
     }
 
@@ -35,7 +36,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees/{id}")
-     public String deleteEmployee(@PathVariable("id") Long empId) {
+     public String deleteEmployee(@PathVariable("id") Long empId) throws EmployeeNotFoundException {
         employeeService.deleteEmployeeById(empId);
         return "Employee deleted successfully!";
     }

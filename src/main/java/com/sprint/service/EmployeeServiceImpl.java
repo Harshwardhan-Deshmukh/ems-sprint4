@@ -1,11 +1,13 @@
 package com.sprint.service;
 
 import com.sprint.entity.Employee;
+import com.sprint.error.EmployeeNotFoundException;
 import com.sprint.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -24,8 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee fetchEmployeeById(Long id) {
-        return employeeRepository.findById(id).get();
+    public Employee fetchEmployeeById(Long id) throws EmployeeNotFoundException {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isEmpty()) {
+            throw new EmployeeNotFoundException("Employee Not found");
+        }
+        return employee.get();
     }
 
     @Override
@@ -34,7 +40,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void deleteEmployeeById(Long empId) {
+    public void deleteEmployeeById(Long empId) throws EmployeeNotFoundException {
+        Optional<Employee> employee = employeeRepository.findById(empId);
+        if (employee.isEmpty()) {
+            throw new EmployeeNotFoundException("Employee Not found");
+        }
         employeeRepository.deleteById(empId);
     }
 
