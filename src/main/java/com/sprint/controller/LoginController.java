@@ -19,6 +19,7 @@ public class LoginController {
     private EmployeeRepository employeeRepository;
 
     @GetMapping("login")
+    // Get request
     public List<Login> listAllLoginRecords() {
         return loginService.fetchLoginList();
     }
